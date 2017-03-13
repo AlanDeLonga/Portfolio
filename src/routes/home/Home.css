@@ -1,0 +1,215 @@
+@import '../../components/variables.css';
+
+.root {
+  background-color: #000;
+}
+
+.container {
+  margin: 0 auto;
+  padding-top: 1rem;
+  max-width: var(--max-content-width);
+}
+
+.workProjCard{
+  background-color: #ccc;
+  height: 285px;
+  border-radius: 7px;
+  box-shadow: 0px 0px 15px 5px #2066f7;
+  font-size: 18px;
+}
+
+.workProjCard img{
+  border-top-right-radius: 7px;
+  border-top-left-radius: 7px;
+}
+
+.textBox{
+  padding: 10px;
+  padding-top: 0px;
+}
+
+.banner{
+  margin-top: 0px;
+  padding: 10px 0;
+  font-size: 1.5rem;
+  text-align: center;
+  font-weight: 300;
+  color: #ccc;
+}
+
+.persProj{
+  background-image: url('http://res.cloudinary.com/adelonga/image/upload/v1489356820/Projects_x0h48s.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+  height: 250px;
+  margin-bottom: 0px;
+  opacity: 0.8;
+}
+
+.banner h1{
+  margin: 0px;
+  font-size: 1.75rem;
+}
+
+.topSection{
+  height: 60px;
+}
+
+.projDate {
+  float: right;
+  padding-top: 5%;
+}
+
+.projItem {
+  margin: 0 0 2rem;
+}
+
+.projTitle {
+  font-size: 1.5rem;
+  float: left;
+  color: #2066f7;
+  text-shadow: 0 1px 0 #ccc,
+               0 2px 0 #c9c9c9,
+               0 3px 0 #bbb,
+               0 4px 0 #b9b9b9,
+               0 5px 0 #aaa,
+               0 6px 1px rgba(0,0,0,.1),
+               0 0 5px rgba(0,0,0,.1),
+               0 1px 3px rgba(0,0,0,.3),
+               0 3px 5px rgba(0,0,0,.2),
+               0 5px 10px rgba(0,0,0,.25),
+               0 10px 10px rgba(0,0,0,.2),
+               0 20px 20px rgba(0,0,0,.15);
+}
+
+.projTitle a:hover, .projTitle a:focus  {
+  color: #000;
+  text-decoration: none;
+}
+.projDesc {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-size: 1.125rem;
+  }
+
+  pre {
+    white-space: pre-wrap;
+    font-size: 0.875rem;
+  }
+
+  img {
+    max-width: 100%;
+  }
+}
+
+/************** transitions ************/
+
+.workExperience-appear {
+  opacity: 0.01;
+}
+
+.workExperience-appear.workExperience-appear-active {
+  opacity: 1;
+  transition: opacity .5s ease-in;
+}
+
+.workExperience-enter {
+  opacity: 0.01;
+}
+
+.workExperience-enter.workExperience-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.workExperience-leave {
+  opacity: 1;
+}
+
+.workExperience-leave.workExperience-leave-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
+}
+
+
+.personalProj-appear {
+  opacity: 0.01;
+}
+
+.personalProj-appear.personalProj-appear-active {
+  opacity: 1;
+  transition: opacity .5s ease-in;
+}
+
+.personalProj-enter {
+  opacity: 0.01;
+}
+
+.personalProj-enter.personalProj-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.personalProj-leave {
+  opacity: 1;
+}
+
+.personalProj-leave.personalProj-leave-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
+}
+
+/************** Media Queries ***************/
+
+@media (max-width: 991px) {
+  .workProjCard{
+    height: 430px;
+    font-size: 18px;
+  }
+  .projDate {
+    padding-top: 3%;
+  }
+  .container{
+    margin: 0 10px;
+  }
+}
+@media (max-width: 795px) {
+  .workProjCard{
+    height: 350px;
+  }
+  .projDate {
+    padding-top: 4%;
+  }
+  .container{
+    margin: 0 10px;
+  }
+}
+@media (max-width: 591px) {
+  .workProjCard{
+    height: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .workProjCard{
+    height: 250px;
+    font-size: 15px;
+  }
+  .persProj{
+    height: 185px;
+  }
+  .projDate {
+    padding-top: 6%;
+  }
+  .banner{
+    font-size: 1rem;
+  }
+  .projItem {
+    margin: 0 0 1.5rem;
+  }
+}
