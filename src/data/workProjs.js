@@ -1,4 +1,4 @@
-export const workProjs = [
+const workProjs = [
   {
     title: 'Nooji Media',
     dates: 'Aug 2016 - Current',
@@ -54,3 +54,5 @@ export const workProjs = [
     },
   },
 ];
+
+export { workProjs as default };

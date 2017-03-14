@@ -2,8 +2,8 @@ import React from 'react';
 import Home from './Home';
 // import fetch from '../../core/fetch';
 import Layout from '../../components/Layout';
-import { workProjs } from '../../data/workProjs';
-import { persProjs } from '../../data/persProjs';
+import workProjs from '../../data/workProjs';
+import persProjs from '../../data/persProjs';
 
 export default {
 

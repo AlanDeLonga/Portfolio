@@ -1,4 +1,4 @@
-export const persProjs = [
+const persProjs = [
   {
     title: 'Photo Social',
     languages: 'PHP5, JS, HTML, CSS',
@@ -37,3 +37,5 @@ export const persProjs = [
   },
 
 ];
+
+export { persProjs as default };
