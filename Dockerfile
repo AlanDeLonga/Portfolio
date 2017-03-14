@@ -1,11 +1,13 @@
-FROM node:6.9.5-alpine
+FROM mhart/alpine-node:6
 
-# Copy application files
-COPY ./build /usr/src/app
-WORKDIR /usr/src/app
+RUN apk add --no-cache htop bash curl vim nano figlet git
+RUN npm install pm2 -g --depth=0
+RUN curl https://raw.githubusercontent.com/gitnooji/nj-docker-support/master/.bashrc > /root/.bashrc
 
-# Install Yarn and Node.js dependencies
-RUN npm install yarn --global --no-progress --silent --depth 0 && \
-    yarn install --production --no-progress
+WORKDIR /server
 
-CMD [ "node", "server.js" ]
+# If you have native dependencies, you'll need extra tools
+# RUN apk add --no-cache make gcc g++ python
+
+EXPOSE 3000
+CMD ["npm", "start"]
