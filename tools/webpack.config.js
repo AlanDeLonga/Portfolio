@@ -68,7 +68,15 @@ const config = {
         },
       },
       {
-        test: /\.css/,
+        test: /\.scss$/,
+        loaders: [
+          'isomorphic-style-loader',
+          'css-loader?modules&localIdentName=[name]_[local]_[hash:base64:3]',
+          'postcss-loader',
+        ],
+      },
+      {
+        test: /\.css$/,
         use: [
           {
             loader: 'isomorphic-style-loader',
