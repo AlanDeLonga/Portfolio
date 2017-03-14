@@ -4,6 +4,8 @@ import AssetsPlugin from 'assets-webpack-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import pkg from '../package.json';
 
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
 const isDebug = !process.argv.includes('--release');
 const isVerbose = process.argv.includes('--verbose');
 const isAnalyze = process.argv.includes('--analyze') || process.argv.includes('--analyse');
@@ -68,40 +70,11 @@ const config = {
         },
       },
       {
-        test: /\.scss$/,
-        loaders: [
-          'isomorphic-style-loader',
-          'css-loader?modules&localIdentName=[name]_[local]_[hash:base64:3]',
-          'postcss-loader',
-        ],
-      },
-      {
         test: /\.css$/,
-        use: [
-          {
-            loader: 'isomorphic-style-loader',
-          },
-          {
-            loader: 'css-loader',
-            options: {
-              // CSS Loader https://github.com/webpack/css-loader
-              importLoaders: 1,
-              sourceMap: isDebug,
-              // CSS Modules https://github.com/css-modules/css-modules
-              modules: true,
-              localIdentName: isDebug ? '[name]-[local]-[hash:base64:5]' : '[hash:base64:5]',
-              // CSS Nano http://cssnano.co/options/
-              minimize: !isDebug,
-              discardComments: { removeAll: true },
-            },
-          },
-          {
-            loader: 'postcss-loader',
-            options: {
-              config: './tools/postcss.config.js',
-            },
-          },
-        ],
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: 'css-loader',
+        }),
       },
       {
         test: /\.md$/,
@@ -168,6 +141,7 @@ const clientConfig = {
   },
 
   plugins: [
+    new ExtractTextPlugin('styles.css'),
     // Define free variables
     // https://webpack.github.io/docs/list-of-plugins.html#defineplugin
     new webpack.DefinePlugin({
