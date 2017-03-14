@@ -10,7 +10,7 @@ html {
   color: #222;
   font-weight: 200;
   font-size: 1em; /* ~16px; */
-  font-family: var(--font-family-base);
+  font-family: 'Oswald', 'Segoe UI', 'HelveticaNeue-Light', sans-serif;
   line-height: 1.375; /* ~22px */
 }
 

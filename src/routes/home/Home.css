@@ -1,4 +1,4 @@
-@import '../../components/variables.css';
+/*@import '../../components/variables.css';*/
 
 .root {
   background-color: #000;
@@ -7,7 +7,7 @@
 .container {
   margin: 0 auto;
   padding-top: 1rem;
-  max-width: var(--max-content-width);
+  max-width: 1000px;
 }
 
 .workProjCard{

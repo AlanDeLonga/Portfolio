@@ -1,8 +1,8 @@
-@import '../variables.css';
+/*@import '../variables.css';*/
 
-:root {
+/*:root {
   --brand-color: #fff;
-}
+}*/
 
 .root {
   color: #fff;
@@ -16,11 +16,11 @@
 .container {
   margin: 0 auto;
   padding: 20px 0;
-  max-width: var(--max-content-width);
+  max-width: 1000px;
 }
 
 .brand {
-  color: color(var(--brand-color) lightness(+10%));
+  color: color(#fff lightness(+10%));
   text-decoration: none;
   font-size: 1.75em; /* ~28px */
   padding-left: 10px;
