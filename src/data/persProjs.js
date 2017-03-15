@@ -20,7 +20,7 @@ const persProjs = [
   {
     title: 'Sudoku',
     languages: 'Java (Android SDK)',
-    description: 'A mobile app Sudoku game for Android, built with eclipse to learn the android lifecycle.',
+    description: 'A mobile app (Sudoku) for Android, built with eclipse to learn the Android lifecycle.',
     link: 'https://www.youtube.com/watch?v=Q1ZRyL-2b_Y',
     content: {
       img: 'http://res.cloudinary.com/adelonga/image/upload/v1489355516/processing_fexihe.png',
@@ -29,7 +29,7 @@ const persProjs = [
   {
     title: 'Zombs',
     languages: 'C++ (openGL)',
-    description: '3D realtime graphics game, built from scratch for my senior project at Cal Poly, SLO.',
+    description: '3D realtime graphics game, built from scratch over 20 weeks for my senior project at Cal Poly, SLO.',
     link: 'https://www.youtube.com/watch?v=EftIIn8rKtM',
     content: {
       img: 'http://res.cloudinary.com/adelonga/image/upload/v1489354637/zombs_glvmf3.png',
