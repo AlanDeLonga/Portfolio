@@ -6,8 +6,15 @@ RUN curl https://raw.githubusercontent.com/gitnooji/nj-docker-support/master/.ba
 
 WORKDIR /server
 
+# if you want the current filesystem contents statically loaded into
+# the container, enable the COPY command below. you can still mount your
+# local filesystem over the static contents of the '/server' folder
+COPY . .
+
 # If you have native dependencies, you'll need extra tools
 # RUN apk add --no-cache make gcc g++ python
+
+RUN npm install
 
 EXPOSE 3000
 CMD ["npm", "start"]
