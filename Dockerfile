@@ -15,7 +15,7 @@ COPY . .
 # RUN apk add --no-cache make gcc g++ python
 
 RUN npm install
-npm install sqlite3
+RUN npm install sqlite3
 
 EXPOSE 3000
 CMD ["npm", "start"]
