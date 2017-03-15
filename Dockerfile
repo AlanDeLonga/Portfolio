@@ -15,6 +15,7 @@ COPY . .
 # RUN apk add --no-cache make gcc g++ python
 
 RUN npm install
+RUN npm install node-pre-gyp
 RUN npm install sqlite3
 
 EXPOSE 3000
