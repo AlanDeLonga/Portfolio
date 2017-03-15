@@ -12,7 +12,7 @@ WORKDIR /server
 COPY . .
 
 # If you have native dependencies, you'll need extra tools
-RUN apk add --no-cache make gcc g++ python
+# RUN apk add --no-cache make gcc g++ python
 
 RUN npm install
 RUN npm install node-pre-gyp
