@@ -194,6 +194,9 @@
 }
 
 @media (max-width: 480px) {
+  html {
+    font-weight: 400;
+  }
   .workProjCard{
     height: 250px;
     font-size: 15px;
