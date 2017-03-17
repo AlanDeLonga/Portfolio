@@ -3,41 +3,6 @@ import { Row, Col } from 'pui-react-grids';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import s from './Home.css';
-import workProjimg from './softwareDev.jpeg';
-
-const buildCards = (proj, index) => {
-  if (proj.content.img) {
-    return (
-      <Col key={index} md={6} className={s.projItem}>
-        <div className={s.workProjCard}>
-          <img src={proj.content.img} alt="poster" width="100%" />
-          <div className={s.textBox}>
-            <div className={s.topSection}>
-              <h1 className={s.projTitle}><a href={proj.link}>{proj.title}</a></h1>
-              { proj.dates ?
-                <div className={s.projDate}>{proj.dates}</div> :
-                <div className={s.projDate}>{proj.languages}</div>
-              }
-            </div>
-            <div className={s.projDesc}>{proj.description}</div>
-          </div>
-        </div>
-      </Col>
-    );
-  }
-  return (
-    <Col key={index} md={6} className={s.projItem}>
-      <div className={s.workProjCard}>
-        <h1 className={s.projTitle}><a href={proj.link}>{proj.title}</a></h1>
-        <div className={s.topSection}>
-          <h1 className={s.projTitle}><a href={proj.link}>{proj.title}</a></h1>
-          <div className={s.projDate}>{proj.dates}</div>
-        </div>
-        <div className={s.projDesc}>{proj.description}</div>
-      </div>
-    </Col>
-  );
-};
 
 class Home extends React.Component {
   static propTypes = {
@@ -57,24 +22,62 @@ class Home extends React.Component {
     })).isRequired,
   };
 
-  // <h1>React.js News</h1>
-  // {this.props.news.map(item => (
-  //   <article key={item.link} className={s.newsItem}>
-  //     <h1 className={s.newsTitle}><a href={item.link}>{item.title}</a></h1>
-  //     <div
-  //       className={s.newsDesc}
-  //       // eslint-disable-next-line react/no-danger
-  //       dangerouslySetInnerHTML={{ __html: item.content }}
-  //     />
-  //   </article>
-  // ))}
+  constructor(props) {
+    super(props);
+    this.state = {
+      workTiles: 6,
+      projTiles: 4,
+    };
+  }
 
-  // <div className={s.banner}>
-  //   <h1>Personal Projects</h1>
-  // </div>
-  // <Row className={s.container}>
-  //   {this.props.persProjs.map(buildCards)}
-  // </Row>
+  buildCards = (proj, index) => {
+    if (proj.content.img) {
+      if ((proj.dates && index < this.state.workTiles) ||
+          (proj.languages && index < this.state.projTiles)) {
+        return (
+          <Col key={index} md={6} className={s.projItem}>
+            <div className={s.workProjCard}>
+              <img src={proj.content.img} alt="poster" width="100%" />
+              <div className={s.textBox}>
+                <div className={s.topSection}>
+                  <h1 className={s.projTitle}><a href={proj.link}>{proj.title}</a></h1>
+                  { proj.dates ?
+                    <div className={s.projDate}>{proj.dates}</div> :
+                    <div className={s.projDate}>{proj.languages}</div>
+                  }
+                </div>
+                <div className={s.projDesc}>{proj.description}</div>
+              </div>
+            </div>
+          </Col>
+        );
+      }
+    }
+    return '';
+  };
+
+  moreTiles = (type) => {
+    if (type === 'work' && this.state.workTiles < this.props.workProjs.length) {
+      this.setState({
+        workTiles: this.state.workTiles + 2,
+      });
+    }
+    if (type === 'proj' && this.state.projTiles < this.props.persProjs.length) {
+      this.setState({
+        projTiles: this.state.workTiles + 2,
+      });
+    }
+  };
+
+  showMore = (type) => {
+    if (type === 'work' && this.state.workTiles < this.props.workProjs.length) {
+      return <div id="moreWork" onClick={() => { this.moreTiles('work'); }} className={s.showMore}>View More</div>;
+    }
+    if (type === 'proj' && this.state.projTiles < this.props.persProjs.length) {
+      return <div id="moreProj" onClick={() => { this.moreTiles('proj'); }} className={s.showMore}>View More</div>;
+    }
+    return '';
+  };
 
   render() {
     return (
@@ -86,13 +89,14 @@ class Home extends React.Component {
           <ReactCSSTransitionGroup
             transitionName="workExperience"
             transitionAppear
-            transitionAppearTimeout={500}
-            transitionEnterTimeout={500}
-            transitionLeaveTimeout={300}
+            transitionAppearTimeout={1500}
+            transitionEnterTimeout={1500}
+            transitionLeaveTimeout={1300}
           >
-            {this.props.workProjs.map(buildCards)}
+            {this.props.workProjs.map(this.buildCards)}
           </ReactCSSTransitionGroup>
         </Row>
+        { this.showMore('work')}
         <div className={s.persProj} />
         <div className={s.banner}>
           <h1>Personal Projects</h1>
@@ -101,13 +105,14 @@ class Home extends React.Component {
           <ReactCSSTransitionGroup
             transitionName="personalProj"
             transitionAppear
-            transitionAppearTimeout={500}
-            transitionEnterTimeout={500}
-            transitionLeaveTimeout={300}
+            transitionAppearTimeout={1500}
+            transitionEnterTimeout={1500}
+            transitionLeaveTimeout={1300}
           >
-            {this.props.persProjs.map(buildCards)}
+            {this.props.persProjs.map(this.buildCards)}
           </ReactCSSTransitionGroup>
         </Row>
+        { this.showMore('proj')}
       </div>
     );
   }
