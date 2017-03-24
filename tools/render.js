@@ -1,12 +1,3 @@
-/**
- * React Starter Kit (https://www.reactstarterkit.com/)
- *
- * Copyright © 2014-present Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
-
 import path from 'path';
 import fetch from 'node-fetch';
 import { writeFile, makeDir } from './lib/fs';
@@ -24,8 +15,8 @@ import runServer from './runServer';
 const routes = [
   '/',
   '/contact',
-  '/login',
-  '/register',
+  '/work',
+  '/proj',
   '/about',
   '/privacy',
   '/404', // https://help.github.com/articles/creating-a-custom-404-page-for-your-github-pages-site/
