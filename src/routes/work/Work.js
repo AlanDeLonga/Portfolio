@@ -22,7 +22,7 @@ class Work extends React.Component {
   }
 
   render() {
-    console.log(this.props.workProj);
+    // console.log(this.props.workProj);
     return (
       <div className={s.root}>
         <div className={s.banner}>
