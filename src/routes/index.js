@@ -9,7 +9,7 @@ export default {
   children: [
     require('./home').default,
     require('./work').default,
-    // require('./proj').default,
+    require('./proj').default,
     require('./contact').default,
     require('./about').default,
 
