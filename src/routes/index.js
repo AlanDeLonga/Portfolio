@@ -12,6 +12,7 @@ export default {
     require('./proj').default,
     require('./contact').default,
     require('./about').default,
+    require('./quiz').default,
 
     // Wildcard routes, e.g. { path: '*', ... } (must go last)
   ],

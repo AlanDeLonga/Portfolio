@@ -32,6 +32,10 @@ const persProjs = [
     description: '3D realtime graphics game, built from scratch over 20 weeks for my senior project at Cal Poly, SLO.',
     link: 'https://www.youtube.com/watch?v=EftIIn8rKtM',
     content: {
+      video: {
+        src: 'http://res.cloudinary.com/adelonga/video/upload/v1490391064/Zombs_-_full_first_level_short_rm2hmj.mp4',
+        type: 'video/mp4',
+      },
       img: 'http://res.cloudinary.com/adelonga/image/upload/v1489354637/zombs_glvmf3.png',
     },
   },

@@ -13,6 +13,58 @@
   font-size: 14px;
 }
 
+.videoBox video{
+  width: 100%;
+  margin-top: -25%;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.videoBox{
+  height: 250px;
+  overflow: hidden;
+}
+
+.videoBoxFull{
+  height: 100%;
+}
+
+.videoBoxFull video{
+  width: 100%;
+}
+
 .text {
   color: rgba(255, 255, 255, 0.5);
+}
+
+
+/************** Media Queries ***************/
+
+@media (max-width: 991px) {
+
+}
+@media (max-width: 795px) {
+  .videoBox video{
+    margin-top: -25%;
+  }
+  .videoBox{
+    height: 300px;
+  }
+}
+@media (max-width: 591px) {
+  .videoBox video{
+
+  }
+  .videoBox{
+
+  }
+}
+
+@media (max-width: 480px) {
+  .videoBox video{
+
+  }
+  .videoBox{
+
+  }
 }

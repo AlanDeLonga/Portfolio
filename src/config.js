@@ -9,7 +9,7 @@ export const analytics = {
 
   // https://analytics.google.com/
   google: {
-    trackingId: process.env.GOOGLE_TRACKING_ID || 'UA-96114456-1', // UA-XXXXX-X
+    trackingId: process.env.GOOGLE_TRACKING_ID, // || 'UA-96114456-1', // UA-XXXXX-X
   },
 
 };
