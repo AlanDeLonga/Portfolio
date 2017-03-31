@@ -1,0 +1,31 @@
+.root {
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 10px;
+  width: 100%;
+  background-color: #ccc;
+  margin-top: -10px;
+  text-align: center;
+}
+
+.quizCheckBoxContainer{
+
+}
+
+.quizInputContainer{
+
+}
+
+.quizDropDownContainer{
+
+}
+
+.quizUploadContainer{
+  
+}
+
+@media (max-width: 480px) {
+  .textSection {
+    text-align: left;
+  }
+}
