@@ -22,7 +22,7 @@ export default {
     const route = await next();
 
     // Provide default values for title, description etc.
-    route.title = `${route.title || 'Untitled Page'} - Alan DeLonga`;
+    route.title = `${route && route.title ? route.title : 'Untitled Page'} - Alan DeLonga`;
     route.description = route.description || '';
 
     return route;
