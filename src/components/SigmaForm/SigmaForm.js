@@ -168,8 +168,9 @@ class SigmaForm extends React.Component {
       rows: newRows,
       selected: newSelected,
       allChecked: false,
+    }, function () {
+      sessionStorage.setItem('rows', JSON.stringify(this.state.rows));
     });
-    sessionStorage.setItem('rows', JSON.stringify(this.state.rows));
   }
 
   render() {
