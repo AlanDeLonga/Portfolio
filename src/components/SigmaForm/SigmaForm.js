@@ -20,7 +20,7 @@ class SigmaForm extends React.Component {
     const selected = [];
     // const savedData = JSON.parse(sessionStorage.getItem('rows'));
     // const rows = savedData ? savedData : [{}];
-    rows.forEach(function (val, index) {
+    rows.map(function (val, index) {
       selected[index] = false;
     });
     this.setState({ rows, selected, allChecked: false });
@@ -43,13 +43,13 @@ class SigmaForm extends React.Component {
           />
         </td>
         <td className={s.quizInputContainer}>
-          { this.createInput(content ? content.email : '', index, 'email') }
+          { this.createInput(content.email ? content.email : '', index, 'email') }
         </td>
         <td className={s.quizInputContainer}>
-          { this.createInput(content ? content.first_name : '', index, 'first_name') }
+          { this.createInput(content.first_name ? content.first_name : '', index, 'first_name') }
         </td>
         <td className={s.quizInputContainer}>
-          { this.createInput(content ? content.last_name : '', index, 'last_name') }
+          { this.createInput(content.last_name ? content.last_name : '', index, 'last_name') }
         </td>
         <td className={s.quizDropDownContainer} >{this.createDropDown(content, index, meritName)}</td>
         <td className={s.quizUploadContainer}>
@@ -59,20 +59,20 @@ class SigmaForm extends React.Component {
           </label>
         </td>
         <td className={s.quizInputContainer}>
-          { this.createInput(content ? content.issue_date : '', index, 'issue_date') }
+          { this.createInput(content.issue_date ? content.issue_date : '', index, 'issue_date') }
         </td>
         <td className={s.quizInputContainer}>
-          { this.createInput(content ? content.expiration_date : '', index, 'expiration_date') }
+          { this.createInput(content.expiration_date ? content.expiration_date : '', index, 'expiration_date') }
         </td>
         <td className={s.quizInputContainer}>
-          { this.createInput(content ? content.id_code : '', index, 'id_code') }
+          { this.createInput(content.id_code ? content.id_code : '', index, 'id_code') }
         </td>
       </tr>
     );
   };
 
   checkAll = () => {
-    let rowState = [];
+    const rowState = [];
     const checkedState = !this.state.allChecked;
     this.state.selected.forEach(function (val, index) {
       rowState[index] = checkedState;
@@ -100,20 +100,21 @@ class SigmaForm extends React.Component {
     this.setState({
       rows: newRows,
       selected: newSelected,
+    }, function () {
+      sessionStorage.setItem('rows', JSON.stringify(this.state.rows));
     });
-    sessionStorage.setItem('rows', JSON.stringify(this.state.rows));
   };
 
   saveRow = (evt, index) => {
     const updatedRows = this.state.rows;
-    // console.log("saveRow: "+ index + " " + evt.target.value + " " + evt.target.name);
     // if the row already has a value saved for that input overwrite it, else generate it
     updatedRows[index][evt.target.name] = evt.target.value;
 
     this.setState({
       rows: updatedRows,
+    }, function () {
+      sessionStorage.setItem('rows', JSON.stringify(this.state.rows));
     });
-    sessionStorage.setItem('rows', JSON.stringify(this.state.rows));
   };
 
   deleteRows = () => {
@@ -130,8 +131,9 @@ class SigmaForm extends React.Component {
       rows: newRows,
       selected: newSelected,
       allChecked: false,
+    }, function () {
+      sessionStorage.setItem('rows', JSON.stringify(this.state.rows));
     });
-    sessionStorage.setItem('rows', JSON.stringify(this.state.rows));
   }
 
   createDropDown = (content, index, name) => (
@@ -144,9 +146,9 @@ class SigmaForm extends React.Component {
 
   // it worked better using onBlur, but react console warning when not using onChange
   createInput = (value, index, name) => {
-    const inputName = `${name}`; // `${name}_${index}`;
+    // const inputName = `${name}`; // `${name}_${index}`;
     return (
-      <input type="text" onChange={evt => this.saveRow(evt, index)} name={inputName} ref={inputName} value={value} />
+      <input type="text" onChange={evt => this.saveRow(evt, index)} name={name} ref={name} value={value} />
     );
   };
 
