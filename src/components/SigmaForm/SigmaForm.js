@@ -1,41 +1,217 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import { Row, Col } from 'pui-react-grids';
 import s from './SigmaForm.css';
 
 class SigmaForm extends React.Component {
-  static propTypes = {
-    // savedRows
+
+  constructor(props) {
+    super(props);
+    this.checkChange = this.checkChange.bind(this);
+    this.saveRow = this.saveRow.bind(this);
+    this.state = {
+      allChecked: false,
+      selected: [],
+      rows: [{}],
+    };
+  }
+
+  componentDidMount() {
+    const rows = JSON.parse(sessionStorage.getItem('rows')) || [{}];
+    const selected = [];
+    // const savedData = JSON.parse(sessionStorage.getItem('rows'));
+    // const rows = savedData ? savedData : [{}];
+    rows.map(function (val, index) {
+      selected[index] = false;
+    });
+    this.setState({ rows, selected, allChecked: false });
+  }
+
+  setUpRow = (content, index) => {
+    const checkName = 'rowChecked'; // `rowChecked_${index}`;
+    const meritName = 'merit'; // `merit_${index}`;
+    const fileName = 'file'; // `file_${index}`;
+
+    return (
+      <tr key={index} className={s.entryRow}>
+        <td className={s.quizCheckBoxContainer}>
+          <input
+            checked={this.state.selected[index]}
+            onChange={() => this.checkChange(index)}
+            type="checkbox"
+            name={checkName}
+            ref={checkName}
+          />
+        </td>
+        <td className={s.quizInputContainer}>
+          { this.createInput(content ? content.email : '', index, 'email') }
+        </td>
+        <td className={s.quizInputContainer}>
+          { this.createInput(content ? content.first_name : '', index, 'first_name') }
+        </td>
+        <td className={s.quizInputContainer}>
+          { this.createInput(content ? content.last_name : '', index, 'last_name') }
+        </td>
+        <td className={s.quizDropDownContainer} >{this.createDropDown(content, index, meritName)}</td>
+        <td className={s.quizUploadContainer}>
+          <label className={s.fileUploadLabel}>
+            <input type="file" name={fileName} ref={fileName} required />
+            <span><div className="glyphicon glyphicon-plus-sign" />add</span>
+          </label>
+        </td>
+        <td className={s.quizInputContainer}>
+          { this.createInput(content ? content.issue_date : '', index, 'issue_date') }
+        </td>
+        <td className={s.quizInputContainer}>
+          { this.createInput(content ? content.expiration_date : '', index, 'expiration_date') }
+        </td>
+        <td className={s.quizInputContainer}>
+          { this.createInput(content ? content.id_code : '', index, 'id_code') }
+        </td>
+      </tr>
+    );
   };
 
-  setUpRow = (index) => (
-    <Row>
-      <Col key={index} md={6} className={s.quizCheckBoxContainer}>Checkbox</Col>
-      <Col key={index} md={6} className={s.quizInputContainer}>Email</Col>
-      <Col key={index} md={6} className={s.quizInputContainer}>First Name</Col>
-      <Col key={index} md={6} className={s.quizInputContainer}>Last Name</Col>
-      <Col key={index} md={6} className={s.quizDropDownContainer}>Merit</Col>
-      <Col key={index} md={6} className={s.quizUploadContainer}>Add</Col>
-      <Col key={index} md={6} className={s.quizInputContainer}>Issue Date</Col>
-      <Col key={index} md={6} className={s.quizInputContainer}>Expiration Date</Col>
-      <Col key={index} md={6} className={s.quizInputContainer}>Identification Code</Col>
-    </Row>
+  checkAll = () => {
+    let rowState = [];
+    const checkedState = !this.state.allChecked;
+    this.state.selected.forEach(function (val, index) {
+      rowState[index] = checkedState;
+    });
+    this.setState({
+      allChecked: !this.state.allChecked,
+      selected: rowState,
+    });
+  };
+
+  checkChange = (index) => {
+    const newSelected = this.state.selected;
+    newSelected[index] = !newSelected[index];
+    this.setState({
+      selected: newSelected,
+      allChecked: false,
+    });
+  }
+
+  addRow = () => {
+    const newSelected = this.state.selected;
+    const newRows = this.state.rows;
+    newRows.push({});
+    newSelected.push(false);
+    this.setState({
+      rows: newRows,
+      selected: newSelected,
+    });
+    sessionStorage.setItem('rows', JSON.stringify(this.state.rows));
+  };
+
+  saveRow = (evt, index) => {
+    const updatedRows = this.state.rows;
+    // console.log("saveRow: "+ index + " " + evt.target.value + " " + evt.target.name);
+    // if the row already has a value saved for that input overwrite it, else generate it
+    updatedRows[index][evt.target.name] = evt.target.value;
+
+    this.setState({
+      rows: updatedRows,
+    });
+    sessionStorage.setItem('rows', JSON.stringify(this.state.rows));
+  };
+
+  deleteRows = () => {
+    const newRows = [];
+    const newSelected = [];
+    const that = this;
+    this.state.rows.map(function (row, index) {
+      if (!that.state.selected[index]) {
+        newRows.push(row);
+        newSelected.push(false);
+      }
+    });
+    this.setState({
+      rows: newRows,
+      selected: newSelected,
+      allChecked: false,
+    });
+    sessionStorage.setItem('rows', JSON.stringify(this.state.rows));
+  }
+
+  createDropDown = (content, index, name) => (
+    <select value={content ? content.merit : ''} onChange={evt => this.saveRow(evt, index)} name={name} ref={name}>
+      {this.props.merits.map(function (selection) {
+        return <option key={selection} value={selection}>{selection}</option>;
+      })}
+    </select>
   );
 
-  displayRows = () => {
-
-    return '';
+  // it worked better using onBlur, but react console warning when not using onChange
+  createInput = (value, index, name) => {
+    const inputName = `${name}`; // `${name}_${index}`;
+    return (
+      <input type="text" onChange={evt => this.saveRow(evt, index)} name={inputName} ref={inputName} value={value} />
+    );
   };
 
+  sendMerits = () => {
+    const newRows = [];
+    const newSelected = [];
+    const that = this;
+    this.state.rows.map(function (row, index) {
+      if (!that.state.selected[index]) {
+        newRows.push(row);
+        newSelected.push(false);
+      } else {
+        console.log(`Sent email to ${row.email}`)
+      }
+    });
+    this.setState({
+      rows: newRows,
+      selected: newSelected,
+      allChecked: false,
+    });
+    sessionStorage.setItem('rows', JSON.stringify(this.state.rows));
+  }
 
   render() {
     return (
       <div className={s.root}>
-        { displayRows }
-        <div>Add</div>
+        <div className={s.topBar}>
+          <span>Outbox for Sigma Engineering</span>
+          <div className={s.topButtons}>
+            <button>UPLOAD SPREADSHEET</button>
+            <button onClick={this.deleteRows} >DELETE</button>
+            <button onClick={this.sendMerits}>SEND</button>
+          </div>
+        </div>
+        <table className={s.outboxTable}>
+          <tbody>
+            <tr>
+              <th className={s.quizCheckBoxContainer}>
+                <input
+                  checked={this.state.allChecked}
+                  type="checkbox"
+                  name="select_all"
+                  onChange={this.checkAll}
+                />
+              </th>
+              <th className={s.quizInputContainer}>EMAIL</th>
+              <th className={s.quizInputContainer}>FIRST NAME</th>
+              <th className={s.quizInputContainer}>LAST NAME</th>
+              <th className={s.quizDropDownContainer}>MERIT</th>
+              <th className={s.quizUploadContainer}>ADD</th>
+              <th className={s.quizInputContainer}>ISSUE DATE</th>
+              <th className={s.quizInputContainer}>EXPIRATION DATE</th>
+              <th className={s.quizInputContainer}>IDENTIFICATION CODE</th>
+            </tr>
+            { this.state.rows.map(this.setUpRow) }
+          </tbody>
+        </table>
+        <button onClick={this.addRow} className={s.addButton}>ADD</button>
       </div>
     );
   }
 }
+
+SigmaForm.propTypes = {
+  merits: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
 
 export default withStyles(s)(SigmaForm);

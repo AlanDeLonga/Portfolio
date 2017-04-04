@@ -13,5 +13,4 @@ export default {
       component: <Quiz title={title} />,
     };
   },
-
 };

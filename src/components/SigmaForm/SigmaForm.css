@@ -3,9 +3,21 @@
   padding-right: 20px;
   padding-top: 10px;
   width: 100%;
-  background-color: #ccc;
   margin-top: -10px;
   text-align: center;
+}
+
+.outboxTable td, .outboxTable th{
+  padding: 10px;
+}
+
+.outboxTable th {
+  font-weight: 400;
+}
+
+.outboxTable .entryRow {
+  margin-top: 5px;
+  border-top: 1px solid #ccc;
 }
 
 .quizCheckBoxContainer{
@@ -13,7 +25,13 @@
 }
 
 .quizInputContainer{
+  margin: 0px 2px;
+}
 
+.quizInputContainer input{
+  width: 100%;
+  border-radius: 5px;
+  line-height: 1.1em;
 }
 
 .quizDropDownContainer{
@@ -21,11 +39,46 @@
 }
 
 .quizUploadContainer{
-  
+
+}
+
+th:first-child {
+  text-align: center !important;
+}
+
+.topBar{
+  width: 100%;
+  display: inline-block;
+}
+
+.topBar span{
+  float: left;
+  color: #459feb;
+  font-size: 2em;
+}
+
+label.fileUploadLabel input[type="file"] {
+  display: none;
+}
+
+.fileUploadLabel{
+  border-radius: 5px;
+  padding: 3px;
+  margin: 2px;
+}
+
+.topButtons{
+  float: right;
+}
+
+.topButtons button{
+  margin: 0 10px;
+}
+
+.addButton{
+  float: left;
 }
 
 @media (max-width: 480px) {
-  .textSection {
-    text-align: left;
-  }
+
 }
