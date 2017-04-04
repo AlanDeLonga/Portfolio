@@ -20,7 +20,7 @@ class SigmaForm extends React.Component {
     const selected = [];
     // const savedData = JSON.parse(sessionStorage.getItem('rows'));
     // const rows = savedData ? savedData : [{}];
-    rows.map(function (val, index) {
+    rows.forEach(function (val, index) {
       selected[index] = false;
     });
     this.setState({ rows, selected, allChecked: false });
@@ -53,7 +53,7 @@ class SigmaForm extends React.Component {
         </td>
         <td className={s.quizDropDownContainer} >{this.createDropDown(content, index, meritName)}</td>
         <td className={s.quizUploadContainer}>
-          <label className={s.fileUploadLabel}>
+          <label htmlFor={fileName} className={s.fileUploadLabel}>
             <input type="file" name={fileName} ref={fileName} required />
             <span><div className="glyphicon glyphicon-plus-sign" />add</span>
           </label>
