@@ -117,7 +117,7 @@ class SigmaForm extends React.Component {
     });
   };
 
-  deleteRows = () => {
+  deleteRows = (send) => {
     const newRows = [];
     const newSelected = [];
     const that = this;
@@ -125,6 +125,10 @@ class SigmaForm extends React.Component {
       if (!that.state.selected[index]) {
         newRows.push(row);
         newSelected.push(false);
+      } else {
+        if (send) {
+          console.log(`Sent email to ${row.email}`);
+        }
       }
     });
     this.setState({
@@ -152,27 +156,6 @@ class SigmaForm extends React.Component {
     );
   };
 
-  sendMerits = () => {
-    const newRows = [];
-    const newSelected = [];
-    const that = this;
-    this.state.rows.map(function (row, index) {
-      if (!that.state.selected[index]) {
-        newRows.push(row);
-        newSelected.push(false);
-      } else {
-        console.log(`Sent email to ${row.email}`)
-      }
-    });
-    this.setState({
-      rows: newRows,
-      selected: newSelected,
-      allChecked: false,
-    }, function () {
-      sessionStorage.setItem('rows', JSON.stringify(this.state.rows));
-    });
-  }
-
   render() {
     return (
       <div className={s.root}>
@@ -180,8 +163,8 @@ class SigmaForm extends React.Component {
           <span>Outbox for Sigma Engineering</span>
           <div className={s.topButtons}>
             <button>UPLOAD SPREADSHEET</button>
-            <button onClick={this.deleteRows} >DELETE</button>
-            <button onClick={this.sendMerits}>SEND</button>
+            <button onClick={() => { this.deleteRows(false); }} >DELETE</button>
+            <button onClick={() => { this.deleteRows(true); }}>SEND</button>
           </div>
         </div>
         <table className={s.outboxTable}>
